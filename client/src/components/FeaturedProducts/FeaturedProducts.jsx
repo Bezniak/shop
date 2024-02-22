@@ -1,43 +1,32 @@
-import React, {useEffect, useState} from 'react';
-import './FeaturedProducts.scss';
+import React from "react";
 import Card from "../Card/Card";
-import axios from "axios";
+import "./FeaturedProducts.scss";
+import useFetch from "../../hooks/useFetch";
+import {Preloader} from "../Preloader/Preloader";
 
-const FeaturedProducts = ({type}) => {
-
-    const [data, setData] = useState([])
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await axios.get(process.env.REACT_APP_API_URL + `/products?populate=*&[filters] [type] [$eq]=${type} `, {
-                    headers: {
-                        Authorization: "bearer" + process.env.REACT_APP_API_TOKEN,
-                    }
-                })
-                console.log(res)
-                setData(res.data.data)
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        fetchData();
-    }, []);
-
-    console.log(data)
+const FeaturedProducts = ({ type }) => {
+    const { data, loading, error } = useFetch(
+        `/products?populate=*&[filters][type][$eq]=${type}`
+    );
 
     return (
-        <div className='featuredProducts'>
+        <div className="featuredProducts">
             <div className="top">
                 <h1>{type} products</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum earum est eum fuga illo laboriosam
-                    necessitatibus quis sed sit voluptate! Accusamus aliquid delectus, dolorem ex maxime minus
-                    perferendis quae similique!</p>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum
+                    suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan
+                    lacus vel facilisis labore et dolore magna aliqua. Quis ipsum
+                    suspendisse ultrices gravida. Risus commodo viverra maecenas.
+                </p>
             </div>
             <div className="bottom">
-                {data.map(item => (
-                    <Card item={item} key={item.id}/>
-                ))}
+                {error
+                    ? "Something went wrong!"
+                    : loading
+                        ? <Preloader/>
+                        : data?.map((item) => <Card item={item} key={item.id} />)}
             </div>
         </div>
     );
