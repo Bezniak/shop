@@ -1,9 +1,9 @@
 .card {
-  width: 280px;
+  width: 300px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 
   .image {
     width: 100%;
@@ -44,6 +44,7 @@
   h2 {
     font-size: 16px;
     font-weight: 400;
+    text-transform: uppercase ;
   }
 
   .prices {
