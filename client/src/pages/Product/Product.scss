@@ -33,6 +33,10 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
+    
+    h1 {
+      text-transform: capitalize;
+    }
 
     .price{
       font-size: 30px;
